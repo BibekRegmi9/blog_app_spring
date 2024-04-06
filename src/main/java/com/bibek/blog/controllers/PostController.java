@@ -1,6 +1,7 @@
 package com.bibek.blog.controllers;
 
 import com.bibek.blog.entities.Post;
+import com.bibek.blog.payloads.ApiResponse;
 import com.bibek.blog.payloads.PostDto;
 import com.bibek.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,28 @@ public class PostController {
         return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
     }
 
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostDto>> getAllPosts(){
+        List<PostDto> posts = this.postService.getAllPost();
+        return  new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+    }
+
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<PostDto> getPost(@PathVariable Integer postId){
+        PostDto post = this.postService.getPostById(postId);
+        return new ResponseEntity<PostDto>(post, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public ApiResponse deletePost(@PathVariable Integer postId){
+        this.postService.deletePost(postId);
+        return new ApiResponse("Post successfully deleted", true);
+    }
+
+    @PutMapping("/posts/{postId}")
+    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable Integer postId){
+        PostDto updatedPost = this.postService.updatePost(postDto, postId);
+        return new ResponseEntity<PostDto>(updatedPost, HttpStatus.OK);
+    }
 }
