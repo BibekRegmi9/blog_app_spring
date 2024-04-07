@@ -3,6 +3,7 @@ package com.bibek.blog.controllers;
 import com.bibek.blog.entities.Post;
 import com.bibek.blog.payloads.ApiResponse;
 import com.bibek.blog.payloads.PostDto;
+import com.bibek.blog.payloads.PostResponse;
 import com.bibek.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,12 +50,14 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts(
-            @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "ASC", required = false) String sortDir
     ){
-        List<PostDto> posts = this.postService.getAllPost(pageNumber, pageSize);
-        return  new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+        PostResponse allPosts = this.postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
+        return  new ResponseEntity<PostResponse>(allPosts, HttpStatus.OK);
     }
 
     @GetMapping("/posts/{postId}")
