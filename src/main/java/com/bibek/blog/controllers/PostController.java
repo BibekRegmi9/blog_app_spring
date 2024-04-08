@@ -1,5 +1,6 @@
 package com.bibek.blog.controllers;
 
+import com.bibek.blog.config.AppConstants;
 import com.bibek.blog.entities.Post;
 import com.bibek.blog.payloads.ApiResponse;
 import com.bibek.blog.payloads.PostDto;
@@ -51,10 +52,10 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = "ASC", required = false) String sortDir
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir
     ){
         PostResponse allPosts = this.postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
         return  new ResponseEntity<PostResponse>(allPosts, HttpStatus.OK);
