@@ -1,12 +1,15 @@
 package com.bibek.blog.payloads;
 
 import com.bibek.blog.entities.Category;
+import com.bibek.blog.entities.Comment;
 import com.bibek.blog.entities.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -26,5 +29,7 @@ public class PostDto {
     private CategoryDto category;
 
     private UserDto user;
+
+    private Set<CommentDto> comments = new HashSet<>();
 
 }
