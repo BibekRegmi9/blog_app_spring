@@ -1,6 +1,7 @@
 package com.bibek.blog.services.impl;
 
 import com.bibek.blog.services.FileService;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,9 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+@Service
 public class FileServiceImpl implements FileService {
     @Override
-    public String UploadImage(String path, MultipartFile file) throws IOException {
+    public String uploadImage(String path, MultipartFile file) throws IOException {
 
         // file name
         String name = file.getOriginalFilename();
@@ -34,7 +36,7 @@ public class FileServiceImpl implements FileService {
         // copy file
         Files.copy(file.getInputStream(), Paths.get(filePath));
 
-        return name;
+        return fileName1;
 
 
     }
